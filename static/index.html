@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>robotsim</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/robotsim.css">
+    <script src="/lib/d3/d3.min.js"></script>
+  </head>
+  <body>
+    <div  style="position: absolute; left: 0px; top: 0px">
+      <p>Robot Sim</p>
+      <button type="button" onClick="rotate(_data[0], 15)">P0 +</button>
+      <button type="button" onClick="rotate(_data[0], -15)">P0 -</button>
+      <button type="button" onClick="rotate(_data[1], 15)">P1 +</button>
+      <button type="button" onClick="rotate(_data[1], -15)">P1 -</button>
+      <button type="button" onClick="rotate(_data[2], 15)">P2 +</button>
+      <button type="button" onClick="rotate(_data[2], -15)">P2 -</button>
+      <button type="button" onClick="rotate(_data[3], 15)">P3 +</button>
+      <button type="button" onClick="rotate(_data[3], -15)">P3 -</button>
+      <button type="button" onClick="rotate(_data[4], 15)">P4 +</button>
+      <button type="button" onClick="rotate(_data[4], -15)">P4 -</button>
+      <button type="button" onClick="rotate(_data[5], 15)">P5 +</button>
+      <button type="button" onClick="rotate(_data[5], -15)">P5 -</button>
+    </div>
+
+    <svg id="main" width="100%" height="100%" style="position: absolute; left: 0px; top: 100px">
+      <g transform="translate(0, 0)">
+        <g id="backPane" class="background" transform="translate(160, 0)">
+          <rect class="chart" width="640" height="480"/>
+        </g>
+        <g id="viewPane" class="chart" transform="translate(480, 240)">
+        </g>
+      </g>
+    </svg>
+
+    <script>
+    var _data = {};
+    d3.json("./sampleData.json", function(err, json) {
+      console.log("json loaded!" + json);
+      _data = json;
+      init(_data);
+      draw();
+    });
+
+    function init(json) {
+      var selection = d3.select("#viewPane").selectAll(".link").data(json);
+      // enter
+      var link = selection
+        .enter()
+        .append("g")
+        .classed("link", true);
+      link.append("path")
+        .style("stroke", d => d.color)
+        .style("stroke-width", "3");
+      link.append("circle")
+        .style("stroke", d => d.color)
+        .style("fill", d => d.color)
+        .style("opacity", "0.1")
+        .attr("r", d => d.length)
+        .call(function() {
+          var cx = 0, cy = 0;
+          var startAngle = 0;
+          var angle0 = 0;
+          var self;
+          return d3.drag()
+            .on("start", function(d) {
+              self = d3.select(this);
+              self.style("opacity", 0.4);
+
+              cx = self.attr("cx");
+              cy = self.attr("cy");
+              angle0 = d.angle;
+
+              startAngle = Math.atan2(d3.event.y - cy, d3.event.x - cx) * 180 / Math.PI;
+              //console.log(cx, cy, angle0, startAngle);
+            })
+            .on("drag", function(d) {
+              var delta = Math.atan2(d3.event.y - cy, d3.event.x - cx) * 180 / Math.PI - startAngle;
+              //console.log(delta);
+              d.angle = angle0 + delta;
+              draw();
+            })
+            .on("end", function(d) {
+              self.style("opacity", 0.1);
+            })
+
+        }());
+
+      // exit
+      selection
+        .exit()
+        .remove();
+
+      // label
+      d3.select("#viewPane").append("text").classed("label", true);
+    }
+
+    function getAngle2D(xa, ya, xb, yb) {
+
+    }
+
+    function innerProduct2D(ax, ax, bx, bx) {
+      return ax*bx + ay*by;
+    }
+
+    function outerProduct2D(ax, ax, bx, bx) {
+      return ax*by - ay*bx;
+    }
+
+    function draw() {
+      var x0 = 0, y0 = 0, x1 = 0, y1 = 0, theta = 0;
+
+      // update links
+      d3.select("#viewPane").selectAll(".link")
+        .each(function(d) {
+          theta += Math.PI * (d.angle / 180.0);
+          x0 = x1;
+          y0 = y1;
+          x1 += Math.cos(theta) * d.length;
+          y1 += Math.sin(theta) * d.length;
+
+          var self = d3.select(this);
+          self.select("path")
+            .attr("d", "M" + x0 + "," + y0
+                + "L" + x1 + "," + y1);
+          self.select("circle")
+            .attr("cx", x0)
+            .attr("cy", y0)
+        })
+
+        // label update
+        d3.select("#viewPane").selectAll(".label")
+          .attr("x", x1)
+          .attr("y", y1)
+          .text(dist(0,0,x1,y1).toFixed(2));
+    }
+
+    function dist(x0, y0, x1, y1) {
+      return Math.sqrt((x1-x0)**2 + (y1-y0)**2);
+    }
+
+    //TEST
+    function rotate(data, angle) {
+      data.angle += angle;
+      draw();
+      //console.log(_data);
+    }
+    </script>
+
+  </body>
+</html>

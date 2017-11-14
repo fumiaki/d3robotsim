@@ -1,0 +1,83 @@
+/* HTML Style */
+body {
+  font-family: meiryo;
+  font-size: 16px;
+  color: #616161;
+
+}
+
+/* SVG Style */
+svg {
+  stroke: #616161;
+  width: 100%;
+}
+
+text {
+  stroke: none;
+  font-family: meiryo;
+  font-size: 1.25em;
+}
+
+.background {
+  stroke: #9E9E9E;
+  stroke-width: 0.5;
+  fill: #EEEEEE;
+}
+
+.Red_500 {
+  fill: #f44336;
+}
+.Pink_500 {
+  fill: #e91e63;
+}
+.Purple_500 {
+  fill: #9c27b0;
+}
+.DeepPurple_500 {
+  fill: #673ab7;
+}
+.Indigo_500 {
+  fill: #3f51b5;
+}
+.Blue_500 {
+  fill: #2196f3;
+}
+.LightBlue_500 {
+  fill: #03a9f4;
+}
+.Cyan_500 {
+  fill: #00bcd4;
+}
+.Teal_500 {
+  fill: #26a69a;
+}
+.Green_500 {
+  fill: #66bb6a;
+}
+.LightGreen_500 {
+  fill: #9ccc65;
+}
+.Lime_500 {
+  fill: #d4e157;
+}
+.Yellow_500 {
+  fill: #ffee58;
+}
+.Amber_500 {
+  fill: #ffc107;
+}
+.Orange_500 {
+  fill: #ff9800;
+}
+.DeepOrange_500 {
+  fill: #ff5722;
+}
+.Brown_500 {
+  fill: #795548;
+}
+.Grey_500 {
+  fill: #9e9e9e;
+}
+.BlueGrey_500 {
+  fill: #607d8b;
+}

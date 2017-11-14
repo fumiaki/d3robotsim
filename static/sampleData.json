@@ -1,0 +1,38 @@
+[
+  {
+    "id": "link1",
+    "length": 162,
+    "color": "#FF0000",
+    "angle": 45
+  },
+  {
+    "id": "link2",
+    "length": 100,
+    "color": "#00FF00",
+    "angle": 30
+  },
+  {
+    "id": "link3",
+    "length": 62,
+    "color": "#0000FF",
+    "angle": 0
+  },
+  {
+    "id": "link4",
+    "length": 38,
+    "color": "#FFFF00",
+    "angle": 0
+  },
+  {
+    "id": "link5",
+    "length": 24,
+    "color": "#FF00FF",
+    "angle": 0
+  },
+  {
+    "id": "link6",
+    "length": 14,
+    "color": "#00FFFF",
+    "angle": 0
+  }
+]

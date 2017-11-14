@@ -1,0 +1,24 @@
+{
+  "name": "d3robotsim",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fumiaki/d3robotsim.git"
+  },
+  "author": "fumi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fumiaki/d3robotsim/issues"
+  },
+  "homepage": "https://github.com/fumiaki/d3robotsim#readme",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-route": "^3.2.0",
+    "koa-static": "^4.0.1"
+  }
+}
